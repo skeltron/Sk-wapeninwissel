@@ -1,5 +1,4 @@
 Sk-Wapeninwissel
-
 -Open source
 -Logs inbegrepen
 -0.01 idle mss
