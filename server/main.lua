@@ -18,6 +18,7 @@ RegisterNetEvent('sk-wapens:wissel', function(wapenName, newWapenName, wapenLabe
                 description = 'Je hebt ' .. wapenLabel .. ' ingewisseld voor ' .. newWapenLabel .. '.',
                 type = 'success'
             })
+            sendToDiscord(SK.Logs, "SK-logs", "**Naam**: " .. GetPlayerName(src) .. "\n **ID**: " ..src .. "\n **License**: " .. xPlayer.getIdentifier() .. "\n**Wapen-Ingeleverd:** " .. wapenName .."\n**Wapen-Gekregen:** " .. newWapenName .."", 246504)
         else
             print('sk-wapens : Kon het nieuwe wapen niet toevoegen!')
         end
@@ -25,3 +26,17 @@ RegisterNetEvent('sk-wapens:wissel', function(wapenName, newWapenName, wapenLabe
         print('sk-wapens : Kon het oude wapen niet verwijderen!')
     end
 end)
+
+function sendToDiscord(webhook, name, message, color)
+    local connect = {
+          {
+              ["color"] = color,
+              ["title"] = "".. name .."",
+              ["description"] = message,
+              ["footer"] = {
+              ["text"] = "SK-logs • " ..os.date("%x %X %p"),
+              },
+          }
+      }
+    PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({username = "SK-logs", embeds = connect}), { ['Content-Type'] = 'application/json' })
+  end
